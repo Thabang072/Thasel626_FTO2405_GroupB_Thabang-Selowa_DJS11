@@ -51,4 +51,34 @@ export default function Favorites({
   }, [favorites, searchQuery, sortOrder, selectedGenre]);
 
 
-  
+  const handleRemoveFavorite = (favorite) => {
+    toggleFavorite(favorite);
+  };
+
+  const handlePlayAudio = (favorite) => {
+    if (favorite.episode) {
+      playAudio(favorite.showId, favorite.season, favorite.episode);
+    } else {
+      playAudio(favorite.id, 1, 1);  // Play first episode of first season for show favorites
+    }
+  };
+
+  const handleSortChange = (newOrder) => {
+    setSortOrder(newOrder);
+  };
+
+  const handleGenreChange = (value) => {
+    setSelectedGenre(value);
+  };
+
+  const renderGenres = (favorite) => {
+    console.log('Rendering genres for:', favorite.showTitle, 'Genres:', favorite.genres);
+    if (!favorite.genres || favorite.genres.length === 0) {
+      return 'No genres available';
+    }
+    return favorite.genres.map(genreId => {
+      const genreTitle = getGenreTitle(genreId);
+      console.log('Genre ID:', genreId, 'Genre Title:', genreTitle);
+      return genreTitle;
+    }).join(', ');
+  };
