@@ -13,4 +13,16 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
     const [sortOrder, setSortOrder] = useState('recentlyUpdated');
     const [selectedGenre, setSelectedGenre] = useState('All');
     const [showDetails, setShowDetails] = useState({});
-  
+
+
+   useEffect(() => {
+    fetchShows();
+  }, []);
+
+  useEffect(() => {
+    filterAndSortShows();
+  }, [shows, sortOrder, selectedGenre, searchQuery]);
+
+  useEffect(() => {
+    fetchShowDetails();
+  }, [filteredShows])
