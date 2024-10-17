@@ -127,3 +127,74 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">Error: {error}</div>;
+
+  return (
+    <Box className="show-list-container">
+      <Text size="8" weight="bold" mb="4">All Podcast Shows</Text>
+      <Flex direction="column" gap="4" mb="4">
+        <Flex gap="2" wrap="wrap">
+          <Select.Root value={selectedGenre} onValueChange={handleGenreChange}>
+            <Select.Trigger />
+            <Select.Content>
+              <Select.Item value="All">All Genres</Select.Item>
+              {Object.entries(genreMap).map(([id, title]) => (
+                <Select.Item key={id} value={id}>{title}</Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </Flex>
+        <Flex gap="2" wrap="wrap">
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('recentlyUpdated')} variant={sortOrder === 'recentlyUpdated' ? 'solid' : 'outline'}>
+            Most Recently Updated
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('leastRecentlyUpdated')} variant={sortOrder === 'leastRecentlyUpdated' ? 'solid' : 'outline'}>
+            Least Recently Updated
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleAZ')} variant={sortOrder === 'titleAZ' ? 'solid' : 'outline'}>
+            Title A-Z
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleZA')} variant={sortOrder === 'titleZA' ? 'solid' : 'outline'}>
+            Title Z-A
+          </Button>
+        </Flex>
+      </Flex>
+      <Flex wrap="wrap" gap="4" className="show-list">
+        {filteredShows.map(show => (
+          <Card key={show.id} style={{ width: '300px' }}>
+            <img src={show.image} alt={show.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+            <Box p="3">
+              <Text size="5" weight="bold" mb="2">{show.title}</Text>
+              <br />
+              <Text size="2" mb="2">Seasons: {show.seasons}</Text>
+              <br />
+              <Text size="2" mb="2">Episodes: {showDetails[show.id]?.totalEpisodes || 'Loading...'}</Text>
+              <br />
+              <Text size="2" mb="2">Last updated: {new Date(show.updated).toLocaleDateString()}</Text><br />
+              <Text size="2" mb="2">Genres: {show.genres.map(genreId => getGenreTitle(genreId)).join(', ')}</Text>
+              <br />
+            
+              <Flex className="button-container" gap="2" mt="2">
+                <Button asChild className="full-width-button view-details-btn custom-button" size="2" variant="soft" style={{ whiteSpace:'nowrap', maxWidth:"100px", backgroundColor: '#64748b', color: 'white' }}>
+                  <Link to={`/show/${show.id}`}>View Details</Link>
+                </Button>
+                <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handlePlayAudio(show)} className="full-width-button play-button custom-button" size="1">
+                  <PlayIcon /> Play
+                </Button>
+                <Button 
+                  onClick={() => toggleFavorite(show)}
+                  variant="ghost"
+                  className="full-width-button favorite-button custom-button"
+                  size="1"
+                >
+                  {isFavorite(show.id) ? <StarFilledIcon /> : <StarIcon />}
+                </Button>
+              </Flex>
+            </Box>
+          </Card>
+        ))}
+      </Flex>
+    </Box>
+  );
+}
+
+export default ShowList;
