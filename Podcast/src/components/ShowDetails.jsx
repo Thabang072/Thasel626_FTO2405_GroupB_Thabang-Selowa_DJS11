@@ -186,7 +186,7 @@ function ShowDetails({ playAudio, toggleFavorite, isFavorite, playbackPositions 
   );
 }
 
-
+export default  ShowDetails;
 
 
 

@@ -11,4 +11,3 @@ import CompletedEpisodes from './components/CompletedEpisodes';
 import SearchBar from './components/SearchBar';
 import '@radix-ui/themes/styles.css';
 import './App.css';
-}
