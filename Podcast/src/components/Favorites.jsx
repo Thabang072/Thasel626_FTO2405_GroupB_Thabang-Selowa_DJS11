@@ -82,3 +82,113 @@ export default function Favorites({
       return genreTitle;
     }).join(', ');
   };
+
+  return (
+    <Box className="favorites" style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
+      <Text size="8" weight="bold" mb="4">Your Favorites</Text>
+      <Flex direction="column" gap="4" mb="4">
+        <Flex gap="2" wrap="wrap">
+          <Select.Root value={selectedGenre} onValueChange={handleGenreChange}>
+            <Select.Trigger />
+            <Select.Content>
+              <Select.Item value="All">All Genres</Select.Item>
+              {Object.entries(genreMap).map(([id, title]) => (
+                <Select.Item key={id} value={id}>{title}</Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Root>
+        </Flex>
+        <Flex gap="2" wrap="wrap">
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('recentlyUpdated')} variant={sortOrder === 'recentlyUpdated' ? 'solid' : 'outline'}>
+            Most Recently Updated
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('leastRecentlyUpdated')} variant={sortOrder === 'leastRecentlyUpdated' ? 'solid' : 'outline'}>
+            Least Recently Updated
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleAZ')} variant={sortOrder === 'titleAZ' ? 'solid' : 'outline'}>
+            Title A-Z
+          </Button>
+          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleZA')} variant={sortOrder === 'titleZA' ? 'solid' : 'outline'}>
+            Title Z-A
+          </Button>
+        </Flex>
+      </Flex>
+      {filteredAndSortedFavorites.length === 0 ? (
+        <Text size="3">No favorites found. {searchQuery || selectedGenre !== 'All' ? 'Try a different search term or genre.' : ''}</Text>
+      ) : (
+        <Flex wrap="wrap" gap="4" className="show-list">
+          {filteredAndSortedFavorites.map((favorite) => (
+            <Card key={favorite.id} style={{ width: '300px' }}>
+              <img 
+                src={favorite.image} 
+                alt={favorite.showTitle} 
+                style={{ width: '100%', height: '200px', objectFit: 'cover' }} 
+              />
+              <Box p="3">
+                <Flex justify="between" align="center">
+                  <Text size="5" weight="bold" mb="2">{favorite.showTitle}</Text>
+                  <Button 
+                    onClick={() => handleRemoveFavorite(favorite)}
+                    variant="ghost"
+                    size="1"
+                    style={{ 
+                      color: '#dc2626', 
+                      fontWeight: 'bold',
+                      fontSize: '1.2em'
+                    }}
+                  >
+                    <Cross1Icon />
+                  </Button>
+                </Flex>
+                <br />
+                {favorite.episode ? (
+                  <>
+                    <Text size="3" mb="2">Episode: {favorite.title}</Text>
+                    <br />
+                    <Text size="2" mb="2">Season: {favorite.season}</Text>
+                    <br />
+                    <Text size="2" mb="2">Episode Number: {favorite.episode}</Text>
+                    <br />
+                  </>
+                ) : (
+                  <>
+                    <Text size="2" mb="2">Seasons: {favorite.seasons || 'N/A'}</Text>
+                    <br />
+                  </>
+                )}
+                <Text size="2" mb="2">Last updated: {new Date(favorite.updated).toLocaleDateString()}</Text>
+                <br />
+                <Text size="2" mb="2">Genres: {renderGenres(favorite)}</Text>
+                <br />
+                <Flex className="button-container" gap="2" mt="2">
+                  <Button 
+                    asChild 
+                    className="full-width-button view-details-btn custom-button" 
+                    size="2" 
+                    variant="soft" 
+                    style={{ 
+                      flex: 1,
+                      backgroundColor: '#64748b', 
+                      color: 'white' 
+                    }}
+                  >
+                    <Link to={`/show/${favorite.showId || favorite.id}`}>View Details</Link>
+                  </Button>
+                  <Button 
+                    style={{ flex: 1, backgroundColor: '#64748b', color: 'white' }} 
+                    onClick={() => handlePlayAudio(favorite)} 
+                    className="full-width-button play-button custom-button" 
+                    size="2"
+                  >
+                    <PlayIcon /> Play
+                  </Button>
+                </Flex>
+              </Box>
+            </Card>
+          ))}
+        </Flex>
+      )}
+    </Box>
+  );
+}
+
