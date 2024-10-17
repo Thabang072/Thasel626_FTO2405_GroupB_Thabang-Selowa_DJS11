@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import '../App.css';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Card, Flex, Box, Text, Select } from '@radix-ui/themes';
+import { StarFilledIcon, StarIcon, PlayIcon } from '@radix-ui/react-icons';
 
 
 const API_BASE_URL = 'https://podcast-api.netlify.app';
@@ -102,3 +104,26 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
   const handleGenreChange = (value) => {
     setSelectedGenre(value);
   };
+
+  const handlePlayAudio = async (show) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/id/${show.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch show details');
+      }
+      const showDetails = await response.json();
+      
+      if (showDetails.seasons && showDetails.seasons.length > 0 &&
+          showDetails.seasons[0].episodes && showDetails.seasons[0].episodes.length > 0) {
+        const firstEpisode = showDetails.seasons[0].episodes[0];
+        playAudio(show.id, 1, firstEpisode.episode);
+      } else {
+        console.error('No episodes found for this show');
+      }
+    } catch (error) {
+      console.error('Error fetching show details:', error);
+    }
+  };
+
+  if (isLoading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
