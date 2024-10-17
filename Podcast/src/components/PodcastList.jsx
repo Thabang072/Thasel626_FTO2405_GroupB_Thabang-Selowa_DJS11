@@ -25,4 +25,80 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
 
   useEffect(() => {
     fetchShowDetails();
-  }, [filteredShows])
+  }, [filteredShows]);
+
+  const fetchShows = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(SHOWS_URL);
+      if (!response.ok) {
+        throw new Error('Failed to fetch shows');
+      }
+      const data = await response.json();
+      setShows(data);
+      setFilteredShows(data);
+      setIsLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
+    }
+  };
+
+  const fetchShowDetails = async () => {
+    const details = {};
+    for (const show of filteredShows) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/id/${show.id}`);
+        if (response.ok) {
+          const data = await response.json();
+          const totalEpisodes = data.seasons.reduce((sum, season) => sum + season.episodes.length, 0);
+          details[show.id] = { totalEpisodes };
+        }
+      } catch (error) {
+        console.error(`Error fetching details for show ${show.id}:`, error);
+      }
+    }
+    setShowDetails(details);
+  };
+
+  const filterAndSortShows = () => {
+    let filtered = shows;
+    
+    if (searchQuery) {
+      const lowercaseQuery = searchQuery.toLowerCase();
+      filtered = filtered.filter(show => 
+        show.title.toLowerCase().includes(lowercaseQuery) ||
+        show.description.toLowerCase().includes(lowercaseQuery)
+      );
+    }
+    
+    if (selectedGenre !== 'All') {
+      filtered = filtered.filter(show => show.genres.includes(parseInt(selectedGenre)));
+    }
+
+    switch (sortOrder) {
+      case 'titleAZ':
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'titleZA':
+        filtered.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      case 'recentlyUpdated':
+        filtered.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+        break;
+      case 'leastRecentlyUpdated':
+        filtered.sort((a, b) => new Date(a.updated) - new Date(b.updated));
+        break;
+      default:
+        filtered.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+    }
+    setFilteredShows(filtered);
+  };
+
+  const handleSortChange = (newOrder) => {
+    setSortOrder(newOrder);
+  };
+
+  const handleGenreChange = (value) => {
+    setSelectedGenre(value);
+  };
