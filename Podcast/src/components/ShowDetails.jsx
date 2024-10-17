@@ -38,3 +38,27 @@ function ShowDetails({ playAudio, toggleFavorite, isFavorite, playbackPositions 
       setIsLoading(false);
     }
   };
+
+  const handleToggleFavorite = (episode) => {
+    if (show) {
+      toggleFavorite({
+        ...episode,
+        season: selectedSeason,
+        showId: show.id,
+        showTitle: show.title,
+        image: show.image
+      }, show);
+    }
+  };
+
+  const handlePlayAudio = (episodeNumber) => {
+    if (show) {
+      playAudio(show.id, selectedSeason, episodeNumber);
+    }
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
