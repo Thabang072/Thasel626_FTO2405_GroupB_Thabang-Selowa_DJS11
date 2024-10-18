@@ -41,6 +41,12 @@ function AudioPlayer({ currentEpisode, onComplete, updatePlaybackPosition }) {
     }
   };
 
+  const updateTime = () => {
+    setCurrentTime(audioRef.current.currentTime);
+    updatePlaybackPosition(currentEpisode.id, audioRef.current.currentTime);
+  };
+
+
 
 
 
