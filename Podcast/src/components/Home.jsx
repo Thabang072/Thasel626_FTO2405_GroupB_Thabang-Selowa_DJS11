@@ -160,7 +160,7 @@ function Home({ playAudio }) {
       </Card>
 
       <Flex justify="center" mt="6">
-        <Button asChild size="3" style={{ width: '30%', backgroundColor: '#64748b', color: 'white' }}>
+        <Button asChild size="3" style={{ width: '30%', backgroundColor: '#', color: 'white' }}>
           <Link to="/shows" className="view-all-link">
             View All Shows <ArrowRightIcon />
           </Link>

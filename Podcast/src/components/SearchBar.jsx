@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField } from '@radix-ui/themes';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 
- function NavBar({ onSearch }) {
+ function SearchBar({ onSearch }) {
   const handleInputChange = (e) => {
     const query = e.target.value;
     onSearch(query);
@@ -23,4 +23,4 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
   );
 }
 
-export default NavBar;
+export default SearchBar;

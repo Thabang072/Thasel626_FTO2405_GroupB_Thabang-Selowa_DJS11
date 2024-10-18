@@ -8,6 +8,7 @@ import Favorites from './components/Favorites';
 import ThemeToggle from './components/ThemeToggle';
 import AudioPlayer from './components/AudioPlayer';
 import CompletedEpisodes from './components/CompletedEpisodes';
+import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import '@radix-ui/themes/styles.css';
 import './App.css';
@@ -306,6 +307,7 @@ function App() {
               />
             </div>
           )}
+          <Footer />
         </div>
       </Router>
     </Theme>
