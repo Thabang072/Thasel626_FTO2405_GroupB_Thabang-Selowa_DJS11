@@ -28,5 +28,13 @@ function FavoritesManager({ playAudio }) {
         });
       };
 
+      return (
+        <Favorites 
+          playAudio={playAudio} 
+          favorites={favorites} 
+          toggleFavorite={toggleFavorite} 
+        />
+      );
+    }
 
 
