@@ -20,3 +20,17 @@ function CompletedEpisodes({
       : listeningHistory;
     setFilteredHistory(filtered);
   }, [listeningHistory, searchQuery]);
+  const startedEpisodes = filteredHistory.filter(episode => !episode.completed);
+  const completedEpisodes = filteredHistory.filter(episode => episode.completed);
+
+  const handlePlayAudio = (episode) => {
+    playAudio(episode.showId, episode.seasonNumber, episode.episodeNumber);
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  
