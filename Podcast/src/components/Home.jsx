@@ -97,5 +97,46 @@ function CustomPrevArrow(props) {
           }
         };
       
+        const settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            pauseOnHover: true,
+            prevArrow: <CustomPrevArrow />,
+            nextArrow: <CustomNextArrow />
+          };
+        
+          if (isLoading) return <Box className="loading">Loading...</Box>;
+          if (error) return <Box className="error">Error: {error}</Box>;
+        
+          return (
+            <Box className="home">
+          <Flex direction="column" align="center" justify="center" style={{ textAlign: 'center', marginBottom: '24px' }}>
+            <Heading size="8" className="welcome-heading"> Thasel Podcast</Heading>
+            <Text size="4" align="center" mb="6" color="gray">Enjoy our live podcasts preview App</Text>
+          </Flex>
+        
+          {/* Adjusted carousel size */}
+          <Card className="carousel-container" style={{ height: '500px', width: '90%', margin: '0 auto', paddingBottom: '40px' }}>
+            <Slider {...settings}>
+              {shows.map(show => (
+                <Box key={show.id} className="carousel-item" style={{ height: '100%', width: '90%', margin: '0 auto' }}>
+                {/* Updated image styling */}
+                <img 
+                  src={show.image} 
+                  alt={show.title} 
+                  className="carousel-image" 
+                  style={{ 
+                    width: '100%',        
+                    height: '100%',        
+                    objectFit: 'cover',    
+                    objectPosition: 'center', 
+                  }} 
+                />
+          
 
         
