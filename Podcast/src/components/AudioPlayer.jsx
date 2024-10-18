@@ -46,6 +46,30 @@ function AudioPlayer({ currentEpisode, onComplete, updatePlaybackPosition }) {
     updatePlaybackPosition(currentEpisode.id, audioRef.current.currentTime);
   };
 
+  const setAudioDuration = () => {
+    setDuration(audioRef.current.duration);
+  };
+
+  const handleAudioEnd = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+    if (onComplete) {
+      onComplete(currentEpisode);
+    }
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const handleSeek = (value) => {
+    const newTime = value[0];
+    setCurrentTime(newTime);
+    audioRef.current.currentTime = newTime;
+    updatePlaybackPosition(currentEpisode.id, newTime);
+  };
 
 
 
