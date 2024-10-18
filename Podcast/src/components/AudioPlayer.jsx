@@ -20,3 +20,12 @@ function AudioPlayer({ currentEpisode, onComplete, updatePlaybackPosition }) {
       };
     }
   }, []);
+
+  useEffect(() => {
+    if (currentEpisode) {
+      audioRef.current.src = currentEpisode.file;
+      audioRef.current.currentTime = currentEpisode.currentTime || 0;
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  }, [currentEpisode]);
