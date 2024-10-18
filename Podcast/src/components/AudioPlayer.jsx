@@ -71,7 +71,37 @@ function AudioPlayer({ currentEpisode, onComplete, updatePlaybackPosition }) {
     updatePlaybackPosition(currentEpisode.id, newTime);
   };
 
+  if (!currentEpisode) return null;
 
+  return (
+    <Flex direction="column" gap="2" className="audio-player bold-border">
+      <audio ref={audioRef} />
+      <Text size="2" weight="bold" style={{ color: 'black' }}>
+        {currentEpisode.title} - {currentEpisode.showTitle}
+      </Text>
+      <Flex align="center" gap="2">
+        <Button onClick={togglePlay} variant="ghost" size="1">
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </Button>
+        <Slider 
+          value={[currentTime]}
+          max={duration}
+          step={1}
+          onValueChange={handleSeek}
+          className="progress-bar"
+        />
+        <Text size="1" style={{ color: 'black' }}>
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </Text>
+      </Flex>
+      <Text size="2" style={{ color: 'black' }}>
+        Season {currentEpisode.seasonNumber}, Episode {currentEpisode.episodeNumber}
+      </Text>
+    </Flex>
+  );
+}
+
+export default AudioPlayer;
 
 
 
