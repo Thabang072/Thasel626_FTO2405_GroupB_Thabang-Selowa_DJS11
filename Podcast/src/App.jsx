@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link,  } from 'react-router-dom';
 import { Theme } from '@radix-ui/themes';
 import Home from './components/Home';
 import ShowList from './components/ShowList';
@@ -9,7 +9,7 @@ import ThemeToggle from './components/ThemeToggle';
 import AudioPlayer from './components/AudioPlayer';
 import CompletedEpisodes from './components/CompletedEpisodes';
 import Footer from './components/Footer';
-import SearchBar from './components/SearchBar';
+//import SearchBar from './components/SearchBar';
 import '@radix-ui/themes/styles.css';
 import './App.css';
 
@@ -219,24 +219,24 @@ function App() {
       <Router>
         <div className={`app ${theme}`}>
         <nav className={`navbar ${theme}`}>
-  <div className="navbar-content">
-    <div className="navbar-center" style={{position: 'relative'}}>
-      <Link to="/">Home</Link>
-
-      <Link to="/shows">Shows</Link>
-      <Link to="/favorites">Favorites</Link>
-      <Link to="/watched"> History</Link>
-    </div>
-    <div className="navbar-right">
-      <input 
-        type="text" 
-        placeholder="Search..." 
-        onChange={(e) => handleSearch(e.target.value)} 
-      />
-      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-     </div>
-     </div>
-    </nav>
+         <div className="navbar-content">
+          <div className="navbar-center" style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', gap: '20px', flexGrow: 1 }}>
+              <Link to="/" style={{ textDecoration: 'none', fontSize: '16px', color: '#333', padding: 'auto' }}>Home</Link>
+              <Link to="/shows" style={{ textDecoration: 'none', fontSize: '16px', color: '#333', padding: 'auto' }}>Shows</Link>
+              <Link to="/favorites" style={{ textDecoration: 'none', fontSize: '16px', color: '#333', padding: 'auto' }}>Favorites</Link>
+             <Link to="/history" style={{ textDecoration: 'none', fontSize: '16px', color: '#333', padding: 'auto' }}>History</Link>
+           </div>
+          <div className="navbar-right" style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
+              <input 
+              type="text" 
+              placeholder="Search..." 
+              onChange={(e) => handleSearch(e.target.value)} 
+              style={{ padding: '8px', fontSize: '14px', border: '1px solid #ccc', borderRadius: '4px', outline: 'none' }} 
+              />
+               <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+        </div>
+        </div>
+       </nav>
 
 
           <main className="content">

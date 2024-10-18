@@ -144,16 +144,20 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
           </Select.Root>
         </Flex>
         <Flex gap="2" wrap="wrap">
-          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('recentlyUpdated')} variant={sortOrder === 'recentlyUpdated' ? 'solid' : 'outline'}>
+          <Button style={{ backgroundColor: '#', color: 'black' }}
+           onClick={() => handleSortChange('recentlyUpdated')} variant={sortOrder === 'recentlyUpdated' ? 'solid' : 'outline'}>
             Most Recently Updated
           </Button>
-          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('leastRecentlyUpdated')} variant={sortOrder === 'leastRecentlyUpdated' ? 'solid' : 'outline'}>
+          <Button style={{ backgroundColor: '#', color: 'black' }}
+           onClick={() => handleSortChange('leastRecentlyUpdated')} variant={sortOrder === 'leastRecentlyUpdated' ? 'solid' : 'outline'}>
             Least Recently Updated
           </Button>
-          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleAZ')} variant={sortOrder === 'titleAZ' ? 'solid' : 'outline'}>
+          <Button style={{ backgroundColor: '#', color: 'black' }}
+           onClick={() => handleSortChange('titleAZ')} variant={sortOrder === 'titleAZ' ? 'solid' : 'outline'}>
             Title A-Z
           </Button>
-          <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handleSortChange('titleZA')} variant={sortOrder === 'titleZA' ? 'solid' : 'outline'}>
+          <Button style={{ backgroundColor: '#', color: 'black' }}
+           onClick={() => handleSortChange('titleZA')} variant={sortOrder === 'titleZA' ? 'solid' : 'outline'}>
             Title Z-A
           </Button>
         </Flex>
@@ -174,10 +178,11 @@ function ShowList({ playAudio, toggleFavorite, isFavorite, searchQuery, getGenre
               <br />
             
               <Flex className="button-container" gap="2" mt="2">
-                <Button asChild className="full-width-button view-details-btn custom-button" size="2" variant="soft" style={{ whiteSpace:'nowrap', maxWidth:"100px", backgroundColor: '#64748b', color: 'white' }}>
+                <Button asChild className="full-width-button view-details-btn custom-button" size="2" variant="soft" 
+                style={{ whiteSpace:'nowrap', maxWidth:"100px", backgroundColor: '#', color: 'black' }}>
                   <Link to={`/show/${show.id}`}>View Details</Link>
                 </Button>
-                <Button style={{ backgroundColor: '#64748b', color: 'white' }} onClick={() => handlePlayAudio(show)} className="full-width-button play-button custom-button" size="1">
+                <Button style={{ backgroundColor: '#', color: 'black' }} onClick={() => handlePlayAudio(show)} className="full-width-button play-button custom-button" size="1">
                   <PlayIcon /> Play
                 </Button>
                 <Button 
