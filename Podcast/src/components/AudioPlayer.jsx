@@ -29,3 +29,19 @@ function AudioPlayer({ currentEpisode, onComplete, updatePlaybackPosition }) {
       setIsPlaying(true);
     }
   }, [currentEpisode]);
+
+  const togglePlay = () => {
+    if (currentEpisode) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+
+
+
+
