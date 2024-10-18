@@ -37,4 +37,5 @@ function FavoritesManager({ playAudio }) {
       );
     }
 
+    export default FavoritesManager;
 
