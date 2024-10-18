@@ -1,4 +1,10 @@
-
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Heading, Text, Card, Flex, Box } from '@radix-ui/themes';
+import Slider from 'react-slick';
+import { PlayIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const API_URL = 'https://podcast-api.netlify.app';
 
