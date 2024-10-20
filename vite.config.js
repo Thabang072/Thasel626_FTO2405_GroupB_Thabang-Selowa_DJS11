@@ -1,18 +1,7 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
-  },
-  build: {
-    external: [
-      './src/main.jsx' // Add the import that needs to be externalized
-    ],
-    outDir: 'dist',
-  },
-  base: './',  // Add this to resolve relative paths correctly
 });
